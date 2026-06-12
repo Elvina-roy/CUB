@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
@@ -24,8 +24,14 @@ jobs:
       - name: Ensure browsers are installed
         run: python -m playwright install chromium --with-deps
 
+      - name: Show project files
+        run: |
+          pwd
+          ls -la
+          find . -maxdepth 3 -type f
+
       - name: Run tests
         run: |
           python -m http.server 8000 &
           sleep 2
-          python -m pytest tests/tests.py -v
+          python -m pytest tests/test.py -v
